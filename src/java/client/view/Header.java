@@ -1,9 +1,12 @@
 package client.view;
 
+import client.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Header {
     private JScrollPane scrollPane;
@@ -19,10 +22,13 @@ public class Header {
     public void update() {
         panel.removeAll();
         headerCount = 0;
+        CurrentPage.getInstance().setCurrentTittle("");
+        CurrentPage.getInstance().setCurrentBody("");
 
-        addHeader("kek");
-        // controller take headers
-        // addButtonListener
+        List<String> headers = Controller.getInstance().takeHeaders();
+        for (String header : headers) {
+            addHeader(header);
+        }
     }
 
     public JScrollPane getScrollPane() {
@@ -60,9 +66,12 @@ public class Header {
                 if (editingState.getState().equals(EditingState.State.ENABLE)) {
                     return;
                 }
+
                 CurrentPage currentPage = CurrentPage.getInstance();
                 currentPage.setCurrentTittle(button.getText());
-                /////
+
+                String body = Controller.getInstance().takeBodyByHeader(button.getText());
+                currentPage.setCurrentBody(body);
             }
         });
     }

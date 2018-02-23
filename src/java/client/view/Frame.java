@@ -84,14 +84,33 @@ public class Frame implements Observer {
                 if (editingState.getState().equals(EditingState.State.ENABLE)) {
                     return;
                 }
-                /////
+
+                AddReferenceDialog dialog = new AddReferenceDialog(header);
+                dialog.show();
             }
         });
 
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /////
+                if (CurrentPage.getInstance().getCurrentTittle().equals("")) {
+                    return;
+                }
+
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    // Controller change body
+
+                    editingState.setState(EditingState.State.DISABLE);
+                    editButton.setText("edit");
+                    body.setEnabled(false);
+                    body.setBackground(Color.BLACK);
+                } else if (editingState.getState().equals(EditingState.State.DISABLE)) {
+                    editingState.setState(EditingState.State.ENABLE);
+                    editButton.setText("save");
+                    body.setEnabled(true);
+                    body.setBackground(Color.GRAY);
+                }
             }
         });
 
