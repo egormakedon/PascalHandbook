@@ -2,9 +2,13 @@ package client.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Frame {
+public class Frame implements Observer {
     private static final String IMAGE_ICON_PATH = File.separator + "img" + File.separator + "pascalIco.png";
 
     private JFrame frame;
@@ -31,6 +35,13 @@ public class Frame {
 
     public void show() {
         frame.setVisible(true);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        CurrentPage currentPage = CurrentPage.getInstance();
+        tittle.setText(currentPage.getCurrentTittle());
+        body.setText(currentPage.getCurrentBody());
     }
 
     private void setFrame() {
@@ -66,7 +77,34 @@ public class Frame {
         panel.add(eraseButton);
         mainPanel.add(panel, BorderLayout.NORTH);
 
-        // add listeners
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+                /////
+            }
+        });
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /////
+            }
+        });
+
+        eraseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+                /////
+            }
+        });
     }
 
     private void setTittleBody() {

@@ -19,7 +19,10 @@ public class Header {
     public void update() {
         panel.removeAll();
         headerCount = 0;
+
+        addHeader("kek");
         // controller take headers
+        // addButtonListener
     }
 
     public JScrollPane getScrollPane() {
@@ -53,8 +56,13 @@ public class Header {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //   sheck changind state
-                ///// add action
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+                CurrentPage currentPage = CurrentPage.getInstance();
+                currentPage.setCurrentTittle(button.getText());
+                /////
             }
         });
     }
