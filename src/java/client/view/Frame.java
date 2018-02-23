@@ -121,7 +121,12 @@ public class Frame implements Observer {
                 if (editingState.getState().equals(EditingState.State.ENABLE)) {
                     return;
                 }
-                /////
+
+                int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+                if (result == 0) {
+                    // Controller delete referrence
+                    header.update();
+                }
             }
         });
     }
