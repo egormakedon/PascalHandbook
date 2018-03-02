@@ -8,6 +8,8 @@ public final class Controller {
     private Controller() {}
     public static Controller getInstance() { return INSTANCE; }
 
+    // User server type
+
     public List<String> takeHeaders() {
         //
         List<String> list = new ArrayList<>();

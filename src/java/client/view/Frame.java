@@ -72,9 +72,17 @@ public class Frame implements Observer {
         JButton eraseButton = new JButton();
         eraseButton.setText("erase");
 
+        JButton changeServerTypeButton = new JButton();
+        changeServerTypeButton.setText("change server type");
+
+        JLabel serverTypeLabel = new JLabel();
+        serverTypeLabel.setText("RPC");
+
         panel.add(addButton);
         panel.add(editButton);
         panel.add(eraseButton);
+        panel.add(changeServerTypeButton);
+        panel.add(serverTypeLabel);
         mainPanel.add(panel, BorderLayout.NORTH);
 
         addButton.addActionListener(new ActionListener() {
@@ -127,6 +135,20 @@ public class Frame implements Observer {
                     // Controller delete referrence
                     header.update();
                 }
+            }
+        });
+
+        changeServerTypeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+
+                ServerType serverType = ServerType.getInstance();
+                serverType.changeServerType();
+                serverTypeLabel.setText(serverType.getServerType().toString());
             }
         });
     }

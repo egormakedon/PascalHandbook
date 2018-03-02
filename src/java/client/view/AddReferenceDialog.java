@@ -57,8 +57,16 @@ public class AddReferenceDialog {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //// controller add reference to server
-                header.update();
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+
+                int result = JOptionPane.showConfirmDialog(dialog, "Are you sure?");
+                if (result == 0) {
+                    //// controller add reference to rpcserver
+                    header.update();
+                }
             }
         });
 
