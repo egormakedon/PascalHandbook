@@ -1,13 +1,13 @@
 package client.view;
 
-public class ServerType {
+public final class ServerType {
     private static final ServerType INSTANCE = new ServerType();
     private ServerType() {}
     public static ServerType getInstance() { return INSTANCE; }
 
     private Type serverType = Type.RPC;
 
-    enum Type {
+    public enum Type {
         RPC, SOAP
     }
 

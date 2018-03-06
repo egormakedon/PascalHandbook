@@ -1,6 +1,9 @@
 package client;
 
-import java.util.ArrayList;
+import client.rpc.ControllerRPC;
+import client.soap.ControllerSOAP;
+import client.view.ServerType;
+
 import java.util.List;
 
 public final class Controller {
@@ -8,20 +11,34 @@ public final class Controller {
     private Controller() {}
     public static Controller getInstance() { return INSTANCE; }
 
-    // User server type
+    private ControllerRPC controllerRPC = new ControllerRPC();
+    private ControllerSOAP controllerSOAP = new ControllerSOAP();
 
-    public List<String> takeHeaders() {
-        //
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        return list;
+    public List<String> takeTitles() {
+        List<String> result = null;
+
+        if (getServerType() == ServerType.Type.RPC) {
+            result = controllerRPC.takeTitles();
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+
+        return result;
     }
 
-    public String takeBodyByHeader(String header) {
-        //
-        return "Lol";
+    public String takeBody(String title) {
+        String body = null;
+
+        if (getServerType() == ServerType.Type.RPC) {
+            body = controllerRPC.takeBody(title);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+
+        return body;
+    }
+
+    private ServerType.Type getServerType() {
+        return ServerType.getInstance().getServerType();
     }
  }

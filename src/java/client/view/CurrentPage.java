@@ -2,7 +2,7 @@ package client.view;
 
 import java.util.Observable;
 
-public class CurrentPage extends Observable {
+public final class CurrentPage extends Observable {
     private static final CurrentPage INSTANCE = new CurrentPage();
     private CurrentPage() {}
     public static CurrentPage getInstance() {

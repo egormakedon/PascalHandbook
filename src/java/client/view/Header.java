@@ -25,7 +25,7 @@ public class Header {
         CurrentPage.getInstance().setCurrentTittle("");
         CurrentPage.getInstance().setCurrentBody("");
 
-        List<String> headers = Controller.getInstance().takeHeaders();
+        List<String> headers = Controller.getInstance().takeTitles();
         for (String header : headers) {
             addHeader(header);
         }
@@ -70,7 +70,7 @@ public class Header {
                 CurrentPage currentPage = CurrentPage.getInstance();
                 currentPage.setCurrentTittle(button.getText());
 
-                String body = Controller.getInstance().takeBodyByHeader(button.getText());
+                String body = Controller.getInstance().takeBody(button.getText());
                 currentPage.setCurrentBody(body);
             }
         });
