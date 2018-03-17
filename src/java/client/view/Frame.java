@@ -1,5 +1,7 @@
 package client.view;
 
+import client.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -125,6 +127,10 @@ public class Frame implements Observer {
         eraseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (CurrentPage.getInstance().getCurrentTittle().equals("")) {
+                    return;
+                }
+
                 EditingState editingState = EditingState.getInstance();
                 if (editingState.getState().equals(EditingState.State.ENABLE)) {
                     return;
@@ -132,8 +138,10 @@ public class Frame implements Observer {
 
                 int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
                 if (result == 0) {
-                    // Controller delete referrence
+                    String currentTitle = CurrentPage.getInstance().getCurrentTittle();
+                    String answer = Controller.getInstance().deleteReference(currentTitle);
                     header.update();
+                    JOptionPane.showMessageDialog(frame, answer);
                 }
             }
         });

@@ -38,6 +38,30 @@ public final class Controller {
         return body;
     }
 
+    public String deleteReference(String title) {
+        String answer = null;
+
+        if (getServerType() == ServerType.Type.RPC) {
+            answer = controllerRPC.deleteReference(title);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+
+        return answer;
+    }
+
+    public String add(String title, String body) {
+        String answer = null;
+
+        if (getServerType() == ServerType.Type.RPC) {
+            answer = controllerRPC.add(title, body);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+
+        return answer;
+    }
+
     private ServerType.Type getServerType() {
         return ServerType.getInstance().getServerType();
     }

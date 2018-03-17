@@ -14,12 +14,12 @@ class HandbookHandler implements HandbookService.Iface {
 
     @Override
     public String deleteReference(String title) throws TException {
-        return null;
+        return Dao.getINSTANCE().deleteReference(title);
     }
 
     @Override
     public String add(String title, String body) throws TException {
-        return null;
+        return Dao.getINSTANCE().add(title, body);
     }
 
     @Override

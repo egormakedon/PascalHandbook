@@ -21,6 +21,8 @@ public final class Dao {
 
     private static final String SQL_SELECT_ALL_TITLES = "SELECT title FROM article";
     private static final String SQL_SELECT_BODY_BY_TITLE = "SELECT body FROM article WHERE title=?";
+    private static final String SQL_DELETE_BY_TITLE = "DELETE FROM article WHERE title=?";
+    private static final String SQL_INSERT_ARTICLE = "INSERT INTO article(title,body) VALUES(?,?)";
 
     public List<String> takeTitles() {
         ProxyConnection connection = null;
@@ -59,6 +61,55 @@ public final class Dao {
                 body.append(resultSet.getString(BODY));
             }
             return body.toString();
+        } catch (SQLException e) {
+            LOGGER.log(Level.FATAL, e);
+            throw new RuntimeException();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+    }
+
+    public String deleteReference(String title) {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_BY_TITLE);
+            statement.setString(1, title);
+            int row = statement.executeUpdate();
+
+            if (row == 1) {
+                return "deleted successfully";
+            } else {
+                return "hasn't deleted";
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.FATAL, e);
+            throw new RuntimeException();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+    }
+
+    public String add(String title, String body) {
+        // proverka na sovpadenie title
+
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(SQL_INSERT_ARTICLE);
+            statement.setString(1, title);
+            statement.setString(2, body);
+            int row = statement.executeUpdate();
+
+            if (row == 1) {
+                return "added successfully";
+            } else {
+                return "hasn't added";
+            }
         } catch (SQLException e) {
             LOGGER.log(Level.FATAL, e);
             throw new RuntimeException();

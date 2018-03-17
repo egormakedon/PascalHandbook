@@ -29,6 +29,8 @@ public class Header {
         for (String header : headers) {
             addHeader(header);
         }
+        scrollPane.setVisible(false);
+        scrollPane.setVisible(true);
     }
 
     public JScrollPane getScrollPane() {

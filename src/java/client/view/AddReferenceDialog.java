@@ -1,5 +1,7 @@
 package client.view;
 
+import client.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,8 +66,12 @@ public class AddReferenceDialog {
 
                 int result = JOptionPane.showConfirmDialog(dialog, "Are you sure?");
                 if (result == 0) {
-                    //// controller add reference to rpcserver
+                    String currentTitle = title.getText();
+                    String currentBody = body.getText();
+
+                    String answer = Controller.getInstance().add(currentTitle, currentBody);
                     header.update();
+                    JOptionPane.showMessageDialog(dialog, answer);
                 }
             }
         });
