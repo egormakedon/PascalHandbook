@@ -1,4 +1,4 @@
-namespace java thrift
+namespace java rpcserver.thrift
 
 struct Image {
   1: i32 imageId,
@@ -32,5 +32,5 @@ service HandbookService {
 	string deleteArticle(1: Article article),
 	string add(1: Article article),
 	list<Article> takeArticleList(),
-	Article takeArticle(1: i32 articleId)
+	Article takeArticle(1: string title)
 }
