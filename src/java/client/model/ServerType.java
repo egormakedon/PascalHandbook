@@ -1,4 +1,4 @@
-package client.view;
+package client.model;
 
 public final class ServerType {
     private static final ServerType INSTANCE = new ServerType();

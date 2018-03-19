@@ -1,6 +1,7 @@
 package client.view;
 
 import client.Controller;
+import client.model.EditingState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,9 +70,9 @@ public class AddReferenceDialog {
                     String currentTitle = title.getText();
                     String currentBody = body.getText();
 
-                    String answer = Controller.getInstance().add(currentTitle, currentBody);
+                    //String answer = Controller.getInstance().add(currentTitle, currentBody);
                     header.update();
-                    JOptionPane.showMessageDialog(dialog, answer);
+                    //JOptionPane.showMessageDialog(dialog, answer);
                 }
             }
         });

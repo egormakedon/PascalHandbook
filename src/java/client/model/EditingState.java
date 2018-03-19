@@ -1,4 +1,4 @@
-package client.view;
+package client.model;
 
 public final class EditingState {
     private static final EditingState INSTANCE = new EditingState();

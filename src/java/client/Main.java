@@ -1,6 +1,6 @@
 package client;
 
-import client.view.CurrentPage;
+import client.model.CurrentPage;
 import client.view.Frame;
 
 public class Main {

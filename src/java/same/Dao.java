@@ -8,6 +8,7 @@ import rpcserver.thrift.Author;
 import rpcserver.thrift.Image;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,16 +75,13 @@ public final class Dao {
 
             String title = article.getTitle();
             String body = article.getBody();
-            int year = article.getDate().getYear();
-            int day = article.getDate().getDay();
-            int month = article.getDate().getMonth();
-            Date date = new Date((long)(year*365*24*60*60*1000 + month*30*24*60*60*1000 + day*24*60*60*1000));
+            Date date = new Date();
             int fk_image_id = 1;
             int fk_author_id = 1;
 
             statement.setString(1, title);
             statement.setString(2, body);
-            statement.setDate(3, date);
+            statement.setDate(3, new java.sql.Date(date.getTime()));
             statement.setInt(4, fk_image_id);
             statement.setInt(5, fk_author_id);
 

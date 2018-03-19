@@ -8,6 +8,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import rpcserver.thrift.HandbookService;
 import same.ServerhostProperties;
 
 class Transport {

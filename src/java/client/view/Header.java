@@ -1,6 +1,8 @@
 package client.view;
 
 import client.Controller;
+import client.model.CurrentPage;
+import client.model.EditingState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,13 +24,15 @@ public class Header {
     public void update() {
         panel.removeAll();
         headerCount = 0;
-        CurrentPage.getInstance().setCurrentTittle("");
-        CurrentPage.getInstance().setCurrentBody("");
+
+        CurrentPage.getInstance().reset();
+        CurrentPage.getInstance().changeObserver();
 
         List<String> headers = Controller.getInstance().takeTitles();
         for (String header : headers) {
             addHeader(header);
         }
+
         scrollPane.setVisible(false);
         scrollPane.setVisible(true);
     }
@@ -69,11 +73,9 @@ public class Header {
                     return;
                 }
 
-                CurrentPage currentPage = CurrentPage.getInstance();
-                currentPage.setCurrentTittle(button.getText());
-
-                String body = Controller.getInstance().takeBody(button.getText());
-                currentPage.setCurrentBody(body);
+                String title = button.getText();
+                Controller.getInstance().takeArticle(title);
+                CurrentPage.getInstance().changeObserver();
             }
         });
     }
