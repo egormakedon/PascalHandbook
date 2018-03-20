@@ -9,7 +9,6 @@ import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import rpcserver.thrift.HandbookHandler;
 import rpcserver.thrift.HandbookService;
-import same.ServerhostProperties;
 
 class Server {
     private static final Logger LOGGER = LogManager.getLogger(Server.class);

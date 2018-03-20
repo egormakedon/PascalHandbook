@@ -1,4 +1,6 @@
-package same;
+package rpcserver.dao;
+
+import rpcserver.dao.ConnectionPool;
 
 import java.sql.Array;
 import java.sql.Blob;

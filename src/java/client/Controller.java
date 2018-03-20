@@ -20,7 +20,7 @@ public final class Controller {
         if (getServerType() == ServerType.Type.RPC) {
             result = controllerRPC.takeTitles();
         } else if (getServerType() == ServerType.Type.SOAP) {
-            // code
+            result = controllerSOAP.takeArticleList();
         }
 
         return result;
@@ -29,7 +29,7 @@ public final class Controller {
         if (getServerType() == ServerType.Type.RPC) {
             controllerRPC.takeArticle(title);
         } else if (getServerType() == ServerType.Type.SOAP) {
-            // code
+            controllerSOAP.takeArticle(title);
         }
     }
     public String add(String title, String body) {
@@ -37,7 +37,7 @@ public final class Controller {
         if (getServerType() == ServerType.Type.RPC) {
             result = controllerRPC.addArticle(title, body);
         } else if (getServerType() == ServerType.Type.SOAP) {
-            // code
+            result = controllerSOAP.add(title, body);
         }
         return result;
     }
@@ -46,7 +46,7 @@ public final class Controller {
         if (getServerType() == ServerType.Type.RPC) {
             result = controllerRPC.deleteArticle(id);
         } else if (getServerType() == ServerType.Type.SOAP) {
-            // code
+            result = controllerSOAP.deleteArticle(id);
         }
         return result;
     }
@@ -55,7 +55,7 @@ public final class Controller {
         if (getServerType() == ServerType.Type.RPC) {
             result = controllerRPC.updateArticle(id, body);
         } else if (getServerType() == ServerType.Type.SOAP) {
-            // code
+            result = controllerSOAP.updateArticle(id, body);
         }
         return result;
     }

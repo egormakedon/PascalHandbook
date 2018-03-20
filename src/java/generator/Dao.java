@@ -3,8 +3,8 @@ package generator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import same.ConnectionPool;
-import same.ProxyConnection;
+import rpcserver.dao.ConnectionPool;
+import rpcserver.dao.ProxyConnection;
 
 import java.sql.*;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package rpcserver.thrift;
 
 import org.apache.thrift.TException;
-import same.Dao;
+import rpcserver.dao.Dao;
 
 import java.util.List;
 
