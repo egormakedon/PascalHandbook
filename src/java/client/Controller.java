@@ -25,13 +25,39 @@ public final class Controller {
 
         return result;
     }
-
     public void takeArticle(String title) {
         if (getServerType() == ServerType.Type.RPC) {
             controllerRPC.takeArticle(title);
         } else if (getServerType() == ServerType.Type.SOAP) {
             // code
         }
+    }
+    public String add(String title, String body) {
+        String result = null;
+        if (getServerType() == ServerType.Type.RPC) {
+            result = controllerRPC.addArticle(title, body);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+        return result;
+    }
+    public String delete(int id) {
+        String result = null;
+        if (getServerType() == ServerType.Type.RPC) {
+            result = controllerRPC.deleteArticle(id);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+        return result;
+    }
+    public String update(int id, String body) {
+        String result = null;
+        if (getServerType() == ServerType.Type.RPC) {
+            result = controllerRPC.updateArticle(id, body);
+        } else if (getServerType() == ServerType.Type.SOAP) {
+            // code
+        }
+        return result;
     }
 
     private ServerType.Type getServerType() {

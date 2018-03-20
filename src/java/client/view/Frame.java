@@ -22,6 +22,11 @@ public class Frame implements Observer {
 
     private JLabel tittle;
     private JTextArea body;
+    private JLabel image;
+    private JLabel name;
+    private JLabel surname;
+    private JLabel country;
+    private JLabel date;
 
     public Frame() {
         frame = new JFrame();
@@ -35,7 +40,13 @@ public class Frame implements Observer {
 
         tittle = new JLabel();
         body = new JTextArea();
-        setTittleBody();
+        name = new JLabel();
+        surname = new JLabel();
+        country = new JLabel();
+        date = new JLabel();
+        image = new JLabel();
+
+        setMainPanel();
     }
 
     public void show() {
@@ -45,8 +56,25 @@ public class Frame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         CurrentPage currentPage = CurrentPage.getInstance();
-        tittle.setText(currentPage.getTitle());
+
+        tittle.setText("title: " + currentPage.getTitle() + "; ");
         body.setText(currentPage.getBody());
+
+//        String imagePath = currentPage.getPath();
+//        File file = new File(imagePath);
+//        BufferedImage bufferedImage = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+//        try {
+//            bufferedImage = ImageIO.read(file);
+//        } catch (IOException e) {
+//            LOGGER.fatal(e);
+//            throw new RuntimeException(e);
+//        }
+//        image = new JLabel(new ImageIcon(bufferedImage));
+
+        name.setText("author name: " + currentPage.getName() + "; ");
+        surname.setText("author surname: " + currentPage.getSurname() + "; ");
+        country.setText("author country: " + currentPage.getCountry() + "; ");
+        date.setText("date: " + currentPage.getDate().toString() + ";");
     }
 
     private void setFrame() {
@@ -106,73 +134,90 @@ public class Frame implements Observer {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (CurrentPage.getInstance().getCurrentTittle().equals("")) {
-//                    return;
-//                }
-//
-//                EditingState editingState = EditingState.getInstance();
-//                if (editingState.getState().equals(EditingState.State.ENABLE)) {
-//                    // Controller change body
-//
-//                    editingState.setState(EditingState.State.DISABLE);
-//                    editButton.setText("edit");
-//                    body.setEnabled(false);
-//                    body.setBackground(Color.BLACK);
-//                } else if (editingState.getState().equals(EditingState.State.DISABLE)) {
-//                    editingState.setState(EditingState.State.ENABLE);
-//                    editButton.setText("save");
-//                    body.setEnabled(true);
-//                    body.setBackground(Color.GRAY);
-//                }
+                if (CurrentPage.getInstance().getTitle().equals("")) {
+                    return;
+                }
+
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    int id = CurrentPage.getInstance().getArticleId();
+                    Controller.getInstance().update(id, body.getText());
+                    editingState.setState(EditingState.State.DISABLE);
+                    editButton.setText("edit");
+                    body.setEnabled(false);
+                    body.setBackground(Color.BLACK);
+                } else if (editingState.getState().equals(EditingState.State.DISABLE)) {
+                    editingState.setState(EditingState.State.ENABLE);
+                    editButton.setText("save");
+                    body.setEnabled(true);
+                    body.setBackground(Color.GRAY);
+                }
             }
         });
 
         eraseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (CurrentPage.getInstance().getCurrentTittle().equals("")) {
-//                    return;
-//                }
-//
-//                EditingState editingState = EditingState.getInstance();
-//                if (editingState.getState().equals(EditingState.State.ENABLE)) {
-//                    return;
-//                }
-//
-//                int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
-//                if (result == 0) {
-//                    String currentTitle = CurrentPage.getInstance().getCurrentTittle();
-//                    String answer = Controller.getInstance().deleteReference(currentTitle);
-//                    header.update();
-//                    JOptionPane.showMessageDialog(frame, answer);
-//                }
+                if (CurrentPage.getInstance().getTitle().equals("")) {
+                    return;
+                }
+
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+
+                int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+                if (result == 0) {
+                    int id = CurrentPage.getInstance().getArticleId();
+                    String answer = Controller.getInstance().delete(id);
+                    header.update();
+                    JOptionPane.showMessageDialog(frame, answer);
+                }
             }
         });
 
         changeServerTypeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                EditingState editingState = EditingState.getInstance();
-//                if (editingState.getState().equals(EditingState.State.ENABLE)) {
-//                    return;
-//                }
-//
-//                ServerType serverType = ServerType.getInstance();
-//                serverType.changeServerType();
-//                serverTypeLabel.setText(serverType.getServerType().toString());
+                EditingState editingState = EditingState.getInstance();
+                if (editingState.getState().equals(EditingState.State.ENABLE)) {
+                    return;
+                }
+
+                ServerType serverType = ServerType.getInstance();
+                serverType.changeServerType();
+                serverTypeLabel.setText(serverType.getServerType().toString());
             }
         });
     }
 
-    private void setTittleBody() {
-        tittle.setFont(new Font("Times New Roman", Font.BOLD, 64));
-        body.setFont(new Font("Times New Roman", Font.ITALIC, 32));
+    private void setMainPanel() {
+        tittle.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        name.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        surname.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        country.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        date.setFont(new Font("Times New Roman", Font.BOLD, 15));
+
+        body.setFont(new Font("Times New Roman", Font.ITALIC, 11));
         body.setEnabled(false);
         body.setBackground(Color.BLACK);
 
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new FlowLayout());
+        titlePanel.setSize(new Dimension(0, 50));
+        titlePanel.setPreferredSize(new Dimension(0, 50));
+
+//        titlePanel.add(image);
+        titlePanel.add(tittle);
+        titlePanel.add(name);
+        titlePanel.add(surname);
+        titlePanel.add(country);
+        titlePanel.add(date);
+
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.add(tittle, BorderLayout.NORTH);
+        panel.add(titlePanel, BorderLayout.NORTH);
         panel.add(new JScrollPane(body), BorderLayout.CENTER);
         mainPanel.add(panel, BorderLayout.CENTER);
     }

@@ -13,7 +13,6 @@ public class AddReferenceDialog {
     private static final String IMAGE_ICON_PATH = File.separator + "img" + File.separator + "pascalIco.png";
 
     private Header header;
-
     private JDialog dialog;
     private JTextField title;
     private JTextArea body;
@@ -70,9 +69,9 @@ public class AddReferenceDialog {
                     String currentTitle = title.getText();
                     String currentBody = body.getText();
 
-                    //String answer = Controller.getInstance().add(currentTitle, currentBody);
+                    String answer = Controller.getInstance().add(currentTitle, currentBody);
                     header.update();
-                    //JOptionPane.showMessageDialog(dialog, answer);
+                    JOptionPane.showMessageDialog(dialog, answer);
                 }
             }
         });

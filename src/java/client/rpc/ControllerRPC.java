@@ -33,7 +33,6 @@ public class ControllerRPC {
             transport.close();
         }
     }
-
     public void takeArticle(String title) {
         Transport transport = new Transport();
         HandbookService.Client client = transport.getClient();
@@ -58,5 +57,61 @@ public class ControllerRPC {
         } finally {
             transport.close();
         }
+    }
+    public String addArticle(String title, String body) {
+        Article article = new Article();
+        article.setTitle(title);
+        article.setBody(body);
+
+        Transport transport = new Transport();
+        HandbookService.Client client = transport.getClient();
+
+        String result;
+        try {
+            result = client.add(article);
+        } catch (TException e) {
+            LOGGER.log(Level.ERROR, e);
+            throw new RuntimeException();
+        } finally {
+            transport.close();
+        }
+        return result;
+    }
+    public String deleteArticle(int id) {
+        Article article = new Article();
+        article.setArticleId(id);
+
+        Transport transport = new Transport();
+        HandbookService.Client client = transport.getClient();
+
+        String result;
+        try {
+            result = client.deleteArticle(article);
+        } catch (TException e) {
+            LOGGER.log(Level.ERROR, e);
+            throw new RuntimeException();
+        } finally {
+            transport.close();
+        }
+        return result;
+    }
+    public String updateArticle(int id, String body) {
+        Article article = new Article();
+        article.setArticleId(id);
+        article.setBody(body);
+
+        Transport transport = new Transport();
+        HandbookService.Client client = transport.getClient();
+
+        String result;
+        try {
+            result = client.updateArticle(article);
+        } catch (TException e) {
+            LOGGER.log(Level.ERROR, e);
+            throw new RuntimeException();
+        } finally {
+            transport.close();
+        }
+        return result;
     }
 }
